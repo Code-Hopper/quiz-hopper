@@ -1,0 +1,18 @@
+/* for styling each component */
+
+/* gobal color variables */
+
+:root {
+   --color1: #22092C;
+   --color2: #872341;
+   --color3: #BE3144;
+   --color4: #F05941;
+}
+
+/* navbar starts*/
+
+.navbar-main-container{
+    background: var(--color1);
+}
+
+/* navbar ends */
