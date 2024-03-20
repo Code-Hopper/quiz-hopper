@@ -3,6 +3,9 @@ import axios from "axios"
 
 import Navbar from './sections/Navbar'
 
+// importing images
+import registerImg from "../components/media/register.png"
+
 const InstituteLR = () => {
 
   let [institute, setInstitute] = useState({
@@ -15,6 +18,9 @@ const InstituteLR = () => {
   })
 
   let response;
+
+  const [nameFocused, setNameFocused] = useState(false);
+  const [nameFilled, setNameFilled] = useState(false);
 
   let hadelSubmit = async (event) => {
     event.preventDefault()
@@ -62,6 +68,25 @@ const InstituteLR = () => {
 
   }
 
+  // floting fields
+
+  const handleNameFocus = () => {
+    setNameFocused(true);
+  };
+
+  const handleNameBlur = () => {
+    setNameFocused(false);
+    if (nameFilled) {
+      setNameFilled(true);
+    } else {
+      setNameFilled(false);
+    }
+  };
+
+  const handleNameChange = (event) => {
+    setNameFilled(event.target.value !== '');
+  };
+
   return (
     <>
       <Navbar />
@@ -81,14 +106,38 @@ const InstituteLR = () => {
               {/* login form */}
             </div>
             <div class="tab-pane fade" id="register-form-container" role="tabpanel" aria-labelledby="pills-profile-tab">
-              <form onSubmit={hadelSubmit}>
-                <input onChange={handelChange} type="text" placeholder='name' name='name' value={institute.name} />
-                <input onChange={handelChange} type="email" placeholder='email' name='email' value={institute.email} />
-                <input onChange={handelChange} type="tel" placeholder='contact' name='contact' value={institute.contact} />
-                <textarea onChange={handelChange} name="address" id="" cols="30" rows="10" value={institute.address}></textarea>
-                <input onChange={handelChange} type="text" placeholder='password' name='password' value={institute.password} />
-                <button className='btn btn-success' type='submit'>Submit</button>
-              </form>
+              <div className='row'>
+                <div className="col">
+                  <img className='img-fluid' src={registerImg} alt="register" />
+                </div>
+                <div className="col">
+
+                  <h1>Please Register Institute !</h1>
+
+                  <div className={`form-floating ${nameFocused || nameFilled ? 'focused' : ''}`}>
+                    <input
+                      name='name'
+                      type="text"
+                      className='form-control'
+                      id="nameInput"
+                      placeholder=' '
+                      onFocus={handleNameFocus}
+                      onBlur={handleNameBlur}
+                      onChange={handleNameChange}
+                    />
+                    <label htmlFor="nameInput">Enter Name</label>
+                  </div>
+
+                  <form onSubmit={hadelSubmit}>
+                    <input className='form-control' onChange={handelChange} type="text" placeholder='name' name='name' value={institute.name} />
+                    <input className='form-control' onChange={handelChange} type="email" placeholder='email' name='email' value={institute.email} />
+                    <input className='form-control' onChange={handelChange} type="tel" placeholder='contact' name='contact' value={institute.contact} />
+                    <textarea className='form-control' onChange={handelChange} name="address" id="" cols="30" rows="10" value={institute.address}></textarea>
+                    <input className='form-control' onChange={handelChange} type="text" placeholder='password' name='password' value={institute.password} />
+                    <button className='btn btn-success' type='submit'>Submit</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
