@@ -6,6 +6,11 @@ import Navbar from './sections/Navbar'
 // importing images
 import registerImg from "../components/media/register.png"
 
+// importing fontawesome icons
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
+
+
 const InstituteLR = () => {
 
   let [institute, setInstitute] = useState({
@@ -22,8 +27,13 @@ const InstituteLR = () => {
   const [nameFocused, setNameFocused] = useState(false);
   const [nameFilled, setNameFilled] = useState(false);
 
+  // to show or hide we need a state variable
+
+  let [showPassword, setShowPassword] = useState(false)
+
   let hadelSubmit = async (event) => {
     event.preventDefault()
+
 
     // set institute username start
 
@@ -87,6 +97,12 @@ const InstituteLR = () => {
     setNameFilled(event.target.value !== '');
   };
 
+  // to show or hide a password
+
+  let togglePassword = () => {
+    setShowPassword(!showPassword)
+  }
+
   return (
     <>
       <Navbar />
@@ -129,11 +145,23 @@ const InstituteLR = () => {
                   </div>
 
                   <form onSubmit={hadelSubmit}>
-                    <input className='form-control' onChange={handelChange} type="text" placeholder='name' name='name' value={institute.name} />
-                    <input className='form-control' onChange={handelChange} type="email" placeholder='email' name='email' value={institute.email} />
-                    <input className='form-control' onChange={handelChange} type="tel" placeholder='contact' name='contact' value={institute.contact} />
-                    <textarea className='form-control' onChange={handelChange} name="address" id="" cols="30" rows="10" value={institute.address}></textarea>
-                    <input className='form-control' onChange={handelChange} type="text" placeholder='password' name='password' value={institute.password} />
+                    <input className='form-control' onChange={handelChange} type="text" placeholder='Institute Name' name='name' value={institute.name} />
+                    <input className='form-control' onChange={handelChange} type="email" placeholder='Admin Email Address' name='email' value={institute.email} />
+                    <input className='form-control' onChange={handelChange} type="tel" placeholder='Admin Contact' name='contact' value={institute.contact} />
+                    <textarea className='form-control' onChange={handelChange} placeholder='Institute Address' name="address" id="" cols="30" rows="10" value={institute.address}></textarea>
+
+                    <div className='d-flex'>
+
+                      <input className='form-control' onChange={handelChange} type={showPassword ? "text" : "password"} placeholder='password' name='password' value={institute.password} />
+                      <button onClick={togglePassword} className='d-flex align-items-center gap-1 btn btn-danger'>
+                        {showPassword ? "Hide" : "Show"}
+                        {showPassword ? <FaEyeSlash /> : <FaEye/>}
+                      </button>
+
+                      {/* validate password to have 8 chars , a special char , a number and a upper & lower case latter */}
+
+                    </div>
+
                     <button className='btn btn-success' type='submit'>Submit</button>
                   </form>
                 </div>
